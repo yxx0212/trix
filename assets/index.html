@@ -4,22 +4,55 @@
     <meta charset="UTF-8">
     <title>Trix</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="trix.css">
+    <link rel="stylesheet" type="text/css" href="../dist/trix.css">
     <style type="text/css">
       main {
         margin: 20px auto;
         max-width: 700px;
       }
+      trix-toolbar .trix-button-group {
+        border-bottom-color: #ccc !important;
+      }
+      trix-toolbar .trix-button {
+        border-bottom: none;
+      }
+      .trix-content span {
+        text-decoration: underline;
+      }
     </style>
-    <script type="text/javascript" src="trix.js"></script>
-    <script type="text/javascript" src="trix/inspector.js"></script>
+    <script type="text/javascript" src="../dist/trix.js"></script>
+    <!-- <script type="text/javascript" src="trix/inspector.js"></script> -->
     <script type="text/javascript">
       Trix.config.attachments.preview.caption.name = true
       Trix.config.attachments.preview.caption.size = false
 
-      document.addEventListener("trix-initialize", function(event) {
-        Trix.Inspector.install(event.target);
-      });
+      Trix.config.lang.bold = '加粗';
+
+      Trix.config.toolbar.getDefaultHTML = function(html){
+        return html =`
+          <div class="trix-button-row">
+            <span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" data-trix-key="b" title="加粗" tabindex="-1">Bold</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" data-trix-key="i" title="斜体" tabindex="-1">Italic</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" data-trix-action="link" data-trix-key="k" title="链接" tabindex="-1">Link</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-underline" data-trix-attribute="underline" data-trix-key="u" title="下划线" tabindex="-1">Underline</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" title="一号标题" tabindex="-1">heading1</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-quote" data-trix-attribute="quote" title="引用" tabindex="-1">quote</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-code" data-trix-attribute="code" title="代码块" tabindex="-1">code</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-bullet-list" data-trix-attribute="bullet" title="无序列表" tabindex="-1">bullets</button>
+              <button type="button" class="trix-button trix-button--icon trix-button--icon-number-list" data-trix-attribute="number" title="有序列表" tabindex="-1">numbers</button>
+            </span>
+          </div>`
+      }
+
+      Trix.config.textAttributes.underline = {
+        tagName: 'span',
+        inheritable: true
+      }
+
+      // document.addEventListener("trix-initialize", function(event) {
+      //   Trix.Inspector.install(event.target);
+      // });
 
       document.addEventListener("trix-attachment-add", function(event) {
         var attachment = event.attachment;
