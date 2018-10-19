@@ -11,14 +11,12 @@
         max-width: 700px;
       }
       trix-toolbar .trix-button-group {
-        border-bottom-color: #ccc !important;
+        border-bottom-color: #ccc;
       }
       trix-toolbar .trix-button {
         border-bottom: none;
       }
-      .trix-content span {
-        text-decoration: underline;
-      }
+
     </style>
     <script type="text/javascript" src="../dist/trix.js"></script>
     <!-- <script type="text/javascript" src="trix/inspector.js"></script> -->
@@ -46,7 +44,7 @@
       }
 
       Trix.config.textAttributes.underline = {
-        tagName: 'span',
+        tagName: 'u',
         inheritable: true
       }
 
